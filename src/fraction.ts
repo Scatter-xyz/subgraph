@@ -1,52 +1,46 @@
 import { BigInt } from "@graphprotocol/graph-ts"
 import {
-  Fraction,
   fractionaliseEvent,
   mergeEvent
 } from "../generated/Fraction/Fraction"
-import { ExampleEntity } from "../generated/schema"
+import { Token,OriginalContract,FractionContract,User } from "../generated/schema"
 
 export function handlefractionaliseEvent(event: fractionaliseEvent): void {
   // Entities can be loaded from the store using a string ID; this ID
   // needs to be unique across all entities of the same type
-  let entity = ExampleEntity.load(event.transaction.from.toHex())
 
-  // Entities only exist after they have been saved to the store;
-  // `null` checks allow to create entities on demand
-  if (!entity) {
-    entity = new ExampleEntity(event.transaction.from.toHex())
+  let userEntity = new User(event.params.sender.toHex())
+  userEntity.sender = event.params.sender
+  userEntity.save()
+  
 
-    // Entity fields can be set using simple assignments
-    entity.count = BigInt.fromI32(0)
-  }
+  let originalContractEntity = new OriginalContract(event.params.originalNftContract.toHex())
+  originalContractEntity.owner = userEntity.id
+  originalContractEntity.contract = event.params.originalNftContract
+  originalContractEntity.save()
+  
 
-  // BigInt and BigDecimal math are supported
-  entity.count = entity.count + BigInt.fromI32(1)
+  let fractionContractEntity = new FractionContract(event.params.fractionNftContract.toHex())
+  fractionContractEntity.owner = userEntity.id
+  fractionContractEntity.contract = event.params.fractionNftContract
+  fractionContractEntity.originalContract = originalContractEntity.id
+  fractionContractEntity.save()
+  
 
-  // Entity fields can be set based on event parameters
-  entity.sender = event.params.sender
-  entity.originalNftContract = event.params.originalNftContract
-
-  // Entities can be written to the store with `.save()`
-  entity.save()
-
-  // Note: If a handler doesn't require existing field values, it is faster
-  // _not_ to load the entity from the store. Instead, create it fresh with
-  // `new Entity(...)`, set the fields that should be updated and save the
-  // entity back to the store. Fields that were not set or unset remain
-  // unchanged, allowing for partial updates to be applied.
-
-  // It is also possible to access smart contracts from mappings. For
-  // example, the contract that has emitted the event can be connected to
-  // with:
-  //
-  // let contract = Contract.bind(event.address)
-  //
-  // The following functions can then be called on this contract to access
-  // state variables and other data:
-  //
-  // - contract.MAX_FRACTION_COUNT(...)
-  // - contract.owner(...)
+  let tokenEntity = new Token(event.params.fractionNftContract.toHex() + "-" + event.params.tokenId.toHex())
+  tokenEntity.tokenId = event.params.tokenId
+  tokenEntity.owner = userEntity.id
+  tokenEntity.fractionContract = fractionContractEntity.id
+  tokenEntity.originalContract = originalContractEntity.id
+  tokenEntity.fractionCount = event.params.fractionCount
+  tokenEntity.save()
 }
 
-export function handlemergeEvent(event: mergeEvent): void {}
+export function handlemergeEvent(event: mergeEvent): void {
+  
+  let tokenEntity = Token.load(event.params.fractionNftContract.toHex() + "-" + event.params.tokenId.toHex())
+  if(tokenEntity) {
+    tokenEntity.fractionCount = BigInt.fromString('0')
+    tokenEntity.save();
+  }
+}

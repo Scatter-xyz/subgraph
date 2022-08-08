@@ -1,6 +1,6 @@
 specVersion: 0.0.4
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum
     name: Fraction
@@ -19,10 +19,10 @@ dataSources:
         - User
       abis:
         - name: Fraction
-          file: ./abis/Fraction.json
+          file: Fraction/abis/Fraction.json
       eventHandlers:
         - event: fractionaliseEvent(indexed address,indexed address,uint256,uint256,indexed address)
           handler: handlefractionaliseEvent
         - event: mergeEvent(indexed address,indexed address,uint256,indexed address)
           handler: handlemergeEvent
-      file: ./src/fraction.ts
+      file: Fraction/Fraction.wasm
