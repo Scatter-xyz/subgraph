@@ -51,31 +51,31 @@ export class Token extends Entity {
     this.set("tokenId", Value.fromBigInt(value));
   }
 
-  get owner(): string {
+  get owner(): Bytes {
     let value = this.get("owner");
-    return value!.toString();
+    return value!.toBytes();
   }
 
-  set owner(value: string) {
-    this.set("owner", Value.fromString(value));
+  set owner(value: Bytes) {
+    this.set("owner", Value.fromBytes(value));
   }
 
-  get fractionContract(): string {
+  get fractionContract(): Bytes {
     let value = this.get("fractionContract");
-    return value!.toString();
+    return value!.toBytes();
   }
 
-  set fractionContract(value: string) {
-    this.set("fractionContract", Value.fromString(value));
+  set fractionContract(value: Bytes) {
+    this.set("fractionContract", Value.fromBytes(value));
   }
 
-  get originalContract(): string {
+  get originalContract(): Bytes {
     let value = this.get("originalContract");
-    return value!.toString();
+    return value!.toBytes();
   }
 
-  set originalContract(value: string) {
-    this.set("originalContract", Value.fromString(value));
+  set originalContract(value: Bytes) {
+    this.set("originalContract", Value.fromBytes(value));
   }
 
   get fractionCount(): BigInt {
@@ -86,167 +86,13 @@ export class Token extends Entity {
   set fractionCount(value: BigInt) {
     this.set("fractionCount", Value.fromBigInt(value));
   }
-}
 
-export class FractionContract extends Entity {
-  constructor(id: string) {
-    super();
-    this.set("id", Value.fromString(id));
-  }
-
-  save(): void {
-    let id = this.get("id");
-    assert(id != null, "Cannot save FractionContract entity without an ID");
-    if (id) {
-      assert(
-        id.kind == ValueKind.STRING,
-        `Entities of type FractionContract must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
-      );
-      store.set("FractionContract", id.toString(), this);
-    }
-  }
-
-  static load(id: string): FractionContract | null {
-    return changetype<FractionContract | null>(
-      store.get("FractionContract", id)
-    );
-  }
-
-  get id(): string {
-    let value = this.get("id");
+  get tokenURI(): string {
+    let value = this.get("tokenURI");
     return value!.toString();
   }
 
-  set id(value: string) {
-    this.set("id", Value.fromString(value));
-  }
-
-  get owner(): string {
-    let value = this.get("owner");
-    return value!.toString();
-  }
-
-  set owner(value: string) {
-    this.set("owner", Value.fromString(value));
-  }
-
-  get tokens(): Array<string> {
-    let value = this.get("tokens");
-    return value!.toStringArray();
-  }
-
-  set tokens(value: Array<string>) {
-    this.set("tokens", Value.fromStringArray(value));
-  }
-
-  get contract(): Bytes {
-    let value = this.get("contract");
-    return value!.toBytes();
-  }
-
-  set contract(value: Bytes) {
-    this.set("contract", Value.fromBytes(value));
-  }
-
-  get originalContract(): string {
-    let value = this.get("originalContract");
-    return value!.toString();
-  }
-
-  set originalContract(value: string) {
-    this.set("originalContract", Value.fromString(value));
-  }
-}
-
-export class OriginalContract extends Entity {
-  constructor(id: string) {
-    super();
-    this.set("id", Value.fromString(id));
-  }
-
-  save(): void {
-    let id = this.get("id");
-    assert(id != null, "Cannot save OriginalContract entity without an ID");
-    if (id) {
-      assert(
-        id.kind == ValueKind.STRING,
-        `Entities of type OriginalContract must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
-      );
-      store.set("OriginalContract", id.toString(), this);
-    }
-  }
-
-  static load(id: string): OriginalContract | null {
-    return changetype<OriginalContract | null>(
-      store.get("OriginalContract", id)
-    );
-  }
-
-  get id(): string {
-    let value = this.get("id");
-    return value!.toString();
-  }
-
-  set id(value: string) {
-    this.set("id", Value.fromString(value));
-  }
-
-  get owner(): string {
-    let value = this.get("owner");
-    return value!.toString();
-  }
-
-  set owner(value: string) {
-    this.set("owner", Value.fromString(value));
-  }
-
-  get contract(): Bytes {
-    let value = this.get("contract");
-    return value!.toBytes();
-  }
-
-  set contract(value: Bytes) {
-    this.set("contract", Value.fromBytes(value));
-  }
-}
-
-export class User extends Entity {
-  constructor(id: string) {
-    super();
-    this.set("id", Value.fromString(id));
-  }
-
-  save(): void {
-    let id = this.get("id");
-    assert(id != null, "Cannot save User entity without an ID");
-    if (id) {
-      assert(
-        id.kind == ValueKind.STRING,
-        `Entities of type User must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
-      );
-      store.set("User", id.toString(), this);
-    }
-  }
-
-  static load(id: string): User | null {
-    return changetype<User | null>(store.get("User", id));
-  }
-
-  get id(): string {
-    let value = this.get("id");
-    return value!.toString();
-  }
-
-  set id(value: string) {
-    this.set("id", Value.fromString(value));
-  }
-
-  get sender(): Bytes {
-    let value = this.get("sender");
-    return value!.toBytes();
-  }
-
-  set sender(value: Bytes) {
-    this.set("sender", Value.fromBytes(value));
+  set tokenURI(value: string) {
+    this.set("tokenURI", Value.fromString(value));
   }
 }

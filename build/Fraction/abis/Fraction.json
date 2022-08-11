@@ -36,6 +36,12 @@
         "internalType": "address",
         "name": "fractionNftContract",
         "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "tokenURI",
+        "type": "string"
       }
     ],
     "name": "fractionaliseEvent",

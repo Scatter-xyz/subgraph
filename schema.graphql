@@ -1,27 +1,28 @@
 type Token @entity {
   id: ID!
   tokenId: BigInt!
-  owner: User!
-  fractionContract: FractionContract!
-  originalContract: OriginalContract!
+  owner: Bytes!
+  fractionContract: Bytes!
+  originalContract: Bytes!
   fractionCount: BigInt!
+  tokenURI: String!
 }
 
-type FractionContract @entity {
-  id: ID!
-  owner: User!
-  tokens: [Token!]! @derivedFrom(field:"fractionContract")
-  contract: Bytes! # address
-  originalContract: OriginalContract!
-}
+# type FractionContract @entity {
+#   id: ID!
+#   owner: User!
+#   tokens: [Token!]! @derivedFrom(field:"fractionContract")
+#   contract: Bytes! # address
+#   originalContract: OriginalContract!
+# }
 
-type OriginalContract @entity {
-  id: ID!
-  owner: User!
-  contract: Bytes! # address
-}
+# type OriginalContract @entity {
+#   id: ID!
+#   owner: User!
+#   contract: Bytes! # address
+# } 
 
-type User @entity {
-  id: ID!
-  sender: Bytes! # address
-}
+# type User @entity {
+#   id: ID!
+#   sender: Bytes! # address
+# }

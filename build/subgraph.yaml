@@ -6,7 +6,7 @@ dataSources:
     name: Fraction
     network: rinkeby
     source:
-      address: "0x12c5e6d2a91f1d92725f00940a5122c721f9eb82"
+      address: "0xb56088B79B55F6AEe89FE53B6d4b672e8bA2dA5F"
       abi: Fraction
     mapping:
       kind: ethereum/events
@@ -21,7 +21,8 @@ dataSources:
         - name: Fraction
           file: Fraction/abis/Fraction.json
       eventHandlers:
-        - event: fractionaliseEvent(indexed address,indexed address,uint256,uint256,indexed address)
+        - event: fractionaliseEvent(indexed address,indexed address,uint256,uint256,indexed
+            address,string)
           handler: handlefractionaliseEvent
         - event: mergeEvent(indexed address,indexed address,uint256,indexed address)
           handler: handlemergeEvent

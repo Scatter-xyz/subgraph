@@ -42,6 +42,10 @@ export class fractionaliseEvent__Params {
   get fractionNftContract(): Address {
     return this._event.parameters[4].value.toAddress();
   }
+
+  get tokenURI(): string {
+    return this._event.parameters[5].value.toString();
+  }
 }
 
 export class mergeEvent extends ethereum.Event {
