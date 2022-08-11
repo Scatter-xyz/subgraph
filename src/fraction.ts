@@ -55,7 +55,7 @@ export function handlemergeEvent(event: mergeEvent): void {
   
   let tokenEntity = Token.load(event.params.fractionNftContract.toHex() + "-" + event.params.tokenId.toString())
   if(tokenEntity) {
-    tokenEntity.fractionCount = BigInt.fromString('18')
+    tokenEntity.fractionCount = BigInt.fromString('0')
     tokenEntity.save()
   }
 }
