@@ -4,9 +4,9 @@ schema:
 dataSources:
   - kind: ethereum
     name: Fraction
-    network: rinkeby
+    network: mumbai
     source:
-      address: "0xb56088B79B55F6AEe89FE53B6d4b672e8bA2dA5F"
+      address: "0xd4B71e9D524FB4925c8C3044b45f5FdABbad976e"
       abi: Fraction
     mapping:
       kind: ethereum/events
@@ -14,14 +14,12 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - Token
-        - FractionContract
-        - OriginalContract
-        - User
       abis:
         - name: Fraction
           file: ./abis/Fraction.json
       eventHandlers:
-        - event: fractionaliseEvent(indexed address,indexed address,uint256,uint256,indexed address,string)
+        - event: fractionaliseEvent(indexed address,indexed
+            address,uint256,uint256,indexed address,string)
           handler: handlefractionaliseEvent
         - event: mergeEvent(indexed address,indexed address,uint256,indexed address)
           handler: handlemergeEvent
