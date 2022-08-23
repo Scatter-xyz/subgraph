@@ -48,6 +48,9 @@ export function handlefractionaliseEvent(event: fractionaliseEvent): void {
     tokenEntity.fractionCount = event.params.fractionCount
     tokenEntity.tokenURI = event.params.tokenURI
     tokenEntity.save()
+  } else {
+    tokenEntity.fractionCount = event.params.fractionCount
+    tokenEntity.save()
   }
 }
 
